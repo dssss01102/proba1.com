@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció</title>
+</head>
+<body>
+    <h2>Regisztráció</h2>
+    <form id="registrationForm">
+        <label for="username">Felhasználónév:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="email">Email cím:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="password">Jelszó:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Regisztráció</button>
+    </form>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            var object = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+            var json = JSON.stringify(object);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "register.php", true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(json);
+
+            this.reset();
+        });
+    </script>
+</body>
+</html>
